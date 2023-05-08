@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB02Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="haber">
+          <Key>
+            <PropertyRef Name="haberId" />
+          </Key>
+          <Property Name="haberId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="haberBasligi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="haberİcerigi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="haberTarihi" Type="date" Nullable="false" />
+          <Property Name="haberResmi" Type="image" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kayit">
+          <Key>
+            <PropertyRef Name="kayitId" />
+          </Key>
+          <Property Name="kayitId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="kayithaberId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="kayituyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="uye">
+          <Key>
+            <PropertyRef Name="uyeId" />
+          </Key>
+          <Property Name="uyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeAdiSoyadi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeTelefon" Type="int" Nullable="false" />
+          <Property Name="uyeMail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeParola" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Kayit_Tohaber">
+          <End Role="haber" Type="Self.haber" Multiplicity="1" />
+          <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="haber">
+              <PropertyRef Name="haberId" />
+            </Principal>
+            <Dependent Role="Kayit">
+              <PropertyRef Name="kayithaberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kayit_Touye">
+          <End Role="uye" Type="Self.uye" Multiplicity="1" />
+          <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uye">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="Kayit">
+              <PropertyRef Name="kayituyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB02ModelStoreContainer">
+          <EntitySet Name="haber" EntityType="Self.haber" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kayit" EntityType="Self.Kayit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uye" EntityType="Self.uye" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Kayit_Tohaber" Association="Self.FK_Kayit_Tohaber">
+            <End Role="haber" EntitySet="haber" />
+            <End Role="Kayit" EntitySet="Kayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kayit_Touye" Association="Self.FK_Kayit_Touye">
+            <End Role="uye" EntitySet="uye" />
+            <End Role="Kayit" EntitySet="Kayit" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB02Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="haber">
+          <Key>
+            <PropertyRef Name="haberId" />
+          </Key>
+          <Property Name="haberId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="haberBasligi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="haberİcerigi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="haberTarihi" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="haberResmi" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Kayit" Relationship="Self.FK_Kayit_Tohaber" FromRole="haber" ToRole="Kayit" />
+        </EntityType>
+        <EntityType Name="Kayit">
+          <Key>
+            <PropertyRef Name="kayitId" />
+          </Key>
+          <Property Name="kayitId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="kayithaberId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="kayituyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="haber" Relationship="Self.FK_Kayit_Tohaber" FromRole="Kayit" ToRole="haber" />
+          <NavigationProperty Name="uye" Relationship="Self.FK_Kayit_Touye" FromRole="Kayit" ToRole="uye" />
+        </EntityType>
+        <EntityType Name="uye">
+          <Key>
+            <PropertyRef Name="uyeId" />
+          </Key>
+          <Property Name="uyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeAdiSoyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeTelefon" Type="Int32" Nullable="false" />
+          <Property Name="uyeMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeParola" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kayit" Relationship="Self.FK_Kayit_Touye" FromRole="uye" ToRole="Kayit" />
+        </EntityType>
+        <Association Name="FK_Kayit_Tohaber">
+          <End Role="haber" Type="Self.haber" Multiplicity="1" />
+          <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="haber">
+              <PropertyRef Name="haberId" />
+            </Principal>
+            <Dependent Role="Kayit">
+              <PropertyRef Name="kayithaberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kayit_Touye">
+          <End Role="uye" Type="Self.uye" Multiplicity="1" />
+          <End Role="Kayit" Type="Self.Kayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uye">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="Kayit">
+              <PropertyRef Name="kayituyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB02Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="haber" EntityType="Self.haber" />
+          <EntitySet Name="Kayit" EntityType="Self.Kayit" />
+          <EntitySet Name="uye" EntityType="Self.uye" />
+          <AssociationSet Name="FK_Kayit_Tohaber" Association="Self.FK_Kayit_Tohaber">
+            <End Role="haber" EntitySet="haber" />
+            <End Role="Kayit" EntitySet="Kayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kayit_Touye" Association="Self.FK_Kayit_Touye">
+            <End Role="uye" EntitySet="uye" />
+            <End Role="Kayit" EntitySet="Kayit" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB02ModelStoreContainer" CdmEntityContainer="DB02Entities">
+          <EntitySetMapping Name="haber">
+            <EntityTypeMapping TypeName="DB02Model.haber">
+              <MappingFragment StoreEntitySet="haber">
+                <ScalarProperty Name="haberId" ColumnName="haberId" />
+                <ScalarProperty Name="haberBasligi" ColumnName="haberBasligi" />
+                <ScalarProperty Name="haberİcerigi" ColumnName="haberİcerigi" />
+                <ScalarProperty Name="haberTarihi" ColumnName="haberTarihi" />
+                <ScalarProperty Name="haberResmi" ColumnName="haberResmi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kayit">
+            <EntityTypeMapping TypeName="DB02Model.Kayit">
+              <MappingFragment StoreEntitySet="Kayit">
+                <ScalarProperty Name="kayitId" ColumnName="kayitId" />
+                <ScalarProperty Name="kayithaberId" ColumnName="kayithaberId" />
+                <ScalarProperty Name="kayituyeId" ColumnName="kayituyeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uye">
+            <EntityTypeMapping TypeName="DB02Model.uye">
+              <MappingFragment StoreEntitySet="uye">
+                <ScalarProperty Name="uyeId" ColumnName="uyeId" />
+                <ScalarProperty Name="uyeAdiSoyadi" ColumnName="uyeAdiSoyadi" />
+                <ScalarProperty Name="uyeTelefon" ColumnName="uyeTelefon" />
+                <ScalarProperty Name="uyeMail" ColumnName="uyeMail" />
+                <ScalarProperty Name="uyeParola" ColumnName="uyeParola" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

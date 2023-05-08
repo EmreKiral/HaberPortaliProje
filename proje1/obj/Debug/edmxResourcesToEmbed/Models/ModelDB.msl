@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB02ModelStoreContainer" CdmEntityContainer="DB02Entities">
+    <EntitySetMapping Name="haber">
+      <EntityTypeMapping TypeName="DB02Model.haber">
+        <MappingFragment StoreEntitySet="haber">
+          <ScalarProperty Name="haberId" ColumnName="haberId" />
+          <ScalarProperty Name="haberBasligi" ColumnName="haberBasligi" />
+          <ScalarProperty Name="haberİcerigi" ColumnName="haberİcerigi" />
+          <ScalarProperty Name="haberTarihi" ColumnName="haberTarihi" />
+          <ScalarProperty Name="haberResmi" ColumnName="haberResmi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kayit">
+      <EntityTypeMapping TypeName="DB02Model.Kayit">
+        <MappingFragment StoreEntitySet="Kayit">
+          <ScalarProperty Name="kayitId" ColumnName="kayitId" />
+          <ScalarProperty Name="kayithaberId" ColumnName="kayithaberId" />
+          <ScalarProperty Name="kayituyeId" ColumnName="kayituyeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="uye">
+      <EntityTypeMapping TypeName="DB02Model.uye">
+        <MappingFragment StoreEntitySet="uye">
+          <ScalarProperty Name="uyeId" ColumnName="uyeId" />
+          <ScalarProperty Name="uyeAdiSoyadi" ColumnName="uyeAdiSoyadi" />
+          <ScalarProperty Name="uyeTelefon" ColumnName="uyeTelefon" />
+          <ScalarProperty Name="uyeMail" ColumnName="uyeMail" />
+          <ScalarProperty Name="uyeParola" ColumnName="uyeParola" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
